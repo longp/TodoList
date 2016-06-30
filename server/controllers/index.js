@@ -4,7 +4,7 @@ const express = require('express'),
 
 // home router
 router.get('/', function(req, res) {
-  res.send("To do List")
+  res.render("index")
 })
 
 

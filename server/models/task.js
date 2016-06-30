@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
       Schema = mongoose.Schema;
 
-var taskSchema = new Schema({
+const taskSchema = new Schema({
   name:String,
   finished: Boolean,
   importance : {
@@ -12,5 +12,5 @@ var taskSchema = new Schema({
   owner: {type.Schema.ObjectId, ref:"User"}
 })
 
-var Task = mongoose.model('Task', taskSchema)
+const Task = mongoose.model('Task', taskSchema)
 module.exports = Task;

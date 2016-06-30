@@ -6,7 +6,9 @@ const express = require('express'),
       http = require('http'),
       path = require('path');
 
-
+// database connection
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/todolist');
 
 
 // environmental variables

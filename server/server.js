@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost/todolist');
 
 // environmental variables
 app.set('port', process.env.PORT || 1337);
-app.use(express.static(path.join(__dirname, '/public')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

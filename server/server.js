@@ -3,10 +3,14 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       expses = require('express-session'),
       logger = require('morgan'),
-      path = require('path'),
-      PORT = 1337
+      http = require('http'),
+      path = require('path');
 
-// exp middleware
+
+
+
+// environmental variables
+app.set('port', process.env.PORT || 1337);
 app.use(express.static(path.resolve(__dirname, '../client/public')))
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -19,7 +23,13 @@ app.use(expses({
 }));
 
 
+const index = require('./routes/indexRoute.js')
+//routes
+app.use('/', index);
 
-app.listen(PORT, function () {
-  console.log('running on port ', PORT)
-})
+
+
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

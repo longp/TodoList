@@ -4,8 +4,8 @@ const express = require('express'),
       expses = require('express-session'),
       logger = require('morgan'),
       http = require('http'),
-      path = require('path');
-
+      path = require('path'),
+      exphbs = require('express-handlebars');
 // database connection
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/todolist');
@@ -25,12 +25,17 @@ app.use(expses({
   cookie : { secure : false, maxAge : (7 * 24 * 60 * 60 * 1000) } // 7 Days
 }));
 
-// set the view engine to ejs
-app.set('view engine', 'ejs');
-
-//routes
+//hbs setup
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts'
+}));
+app.set('view engine', 'handlebars');
 const index = require('./controllers/index.js')
+      auth = require('./controllers/auth.js')
 app.use('/', index);
+app.use('/auth', auth);
+
 
 
 

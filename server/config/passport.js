@@ -5,7 +5,7 @@ const passport = require('passport'),
 
 
 // passportlocal auth strategy
-passport.use(new LocalStrategy(
+passport.use('local-login', new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
@@ -19,6 +19,29 @@ passport.use(new LocalStrategy(
     });
   }
 ));
+
+
+passport.use('local-signup', new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({ username: username }, function(err, user) {
+            if (err)
+                return done(err);
+            if (user) {
+                return done(null, false, { message: "Username already exists"})
+            } else {
+                var newUser = new User({
+                  username: username,
+                  password: password
+                });
+                newUser.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, newUser);
+                });
+            }
+        });
+    }));
+
 
 
 passport.serializeUser(function(user, done) {

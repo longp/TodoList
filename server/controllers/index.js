@@ -4,6 +4,7 @@ const express = require('express'),
 
 // home router
 router.get('/', function(req, res) {
+  console.log(req.user)
   res.render("index")
 })
 

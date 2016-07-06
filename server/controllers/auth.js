@@ -9,26 +9,24 @@ router.get('/register', function(req,res) {
   res.render('register')
 })
 
-router.post('/register', function(req, res) {
-  newUser = new User({
-    username:req.body.username,
-    password:req.body.password
-  });
-  newUser.save(function(err, doc) {
-    if (err) {
-      console.log(err)
-    }
-      res.redirect('/')
-  });
-})
+router.post('/register',
+  passport.authenticate('local-signup', {
+     successRedirect: '/',
+     failureRedirect: '/auth/register',
+     failureFlash: true
+   })
+);
 
 router.get('/login', function(req, res) {
   res.render('login')
 })
 
-router.post('/login',  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/auth/login',
-                                   failureFlash: true })
+router.post('/login',
+  passport.authenticate('local-login', {
+   successRedirect: '/',
+   failureRedirect: '/auth/login',
+   failureFlash: true
+ })
 );
 
 

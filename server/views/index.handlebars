@@ -1,9 +1,13 @@
 <div class="">
+  {{#if username}}
+    <form  action="/task/create" method="post">
+      <input type="text" name="name" placeholder="task name">
+      <input type="submit" value="make">
+    </form>
+  {{else}}
   <form action="/auth/login" method="get">
-    <button type="submit"  action="/login">Login</button>
+    <button type="submit">Login</button>
   </form>
-  <form  action="/create" method="post">
-    <input type="text" name="name" placeholder="task name">
-    <input type="submit" name="name" value="make">
-  </form>
+  {{/if}}
+
 </div>

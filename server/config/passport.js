@@ -5,22 +5,23 @@ const passport = require('passport'),
 
 
 // passportlocal auth strategy
-passport.use(new passportLocal(
+passport.use('local', new passportLocal(
   function(username, password, done) {
-    User.findOne({ username: username }).then(function(user) {
-      if(user){
-        // if user exists then check password against hash
-        bcrypt.compare(password, user.password, function(err, check) {
-          if (check) {
-            done(null, { id:user.id, username: username, activeAcc: user.activeAcc });
-          } else{
-            done(null, null);
-          }
-        });
-      } else {
-        done(null, null);
-      }
-    });
+    // User.findOne wont fire unless data is sent back
+    process.nextTick(function () {
+      User.findOne({ username: username, password:password }, function(user, err) {
+        if (err) { return done(err); }
+            if (!user) {
+              return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.validPassword(password)) {
+              return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+
+      });
+    })
+
   }
 ));
 

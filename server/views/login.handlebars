@@ -1,10 +1,11 @@
 <div>
-
-  <form class="" action="/login" method="post">
-    <input type="text" name="username" value="username">
-    <input type="text" name="password" value="password">
-    <input type="button"  value="Login">
+  <form action="/auth/login" method="post">
+    <input type="text" name="username" placeholder="username">
+    <input type="text" name="password" placeholder="password">
+    <button type="submit">Login</button>
   </form>
   <br>
-  <input type="button" action="/register"value="Register">
+  <form action="/auth/register" method="get">
+    <button type="submit">register</button>
+  </form>
 </div>

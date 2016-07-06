@@ -1,27 +1,22 @@
 const passport = require('passport'),
-      passportLocal = require('passport-local').Strategy,
+      LocalStrategy = require('passport-local').Strategy,
       User = require('../models/user.js'),
       bcrypt = require('bcryptjs');
 
 
 // passportlocal auth strategy
-passport.use('local', new passportLocal(
+passport.use(new LocalStrategy(
   function(username, password, done) {
-    // User.findOne wont fire unless data is sent back
-    process.nextTick(function () {
-      User.findOne({ username: username, password:password }, function(user, err) {
-        if (err) { return done(err); }
-            if (!user) {
-              return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!user.validPassword(password)) {
-              return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-
-      });
-    })
-
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
   }
 ));
 
@@ -31,8 +26,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findOne({ _id: id }).then(function(user) {
-    done(null, { id: user.id, username: user.username});
+  User.findById(id, function(err, user) {
+    done(err, user);
   });
 });
 

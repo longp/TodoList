@@ -6,6 +6,7 @@ const express = require('express'),
       http = require('http'),
       path = require('path'),
       passport = require('passport'),
+      flash = require('connect-flash'),
       exphbs = require('express-handlebars');
 // database connection
 const mongoose = require('mongoose');
@@ -24,6 +25,7 @@ app.use(expses({
   saveUninitialized: true,
   cookie : { secure : false, maxAge : (7 * 24 * 60 * 60 * 1000) }
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

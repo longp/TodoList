@@ -42,7 +42,7 @@ const index = require('./controllers/index.js'),
       api = require('./controllers/api.js')
 app.use('/', index);
 app.use('/auth', auth);
-app.use('/tasks', api);
+app.use('/task', api);
 
 
 

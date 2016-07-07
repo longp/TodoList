@@ -1,5 +1,40 @@
+<h1>CREATE TASK</h1>
 <form  action="/task/create" method="post">
   <input type="text" name="name" placeholder="task name">
   <input type="text" name="description" placeholder="description">
-  <input type="submit" value="make">
+  <div class="">
+    <input type="radio" name="importance" value="low" checked> low
+    <input type="radio" name="importance" value="normal"> normal
+    <input type="radio" name="importance" value="high"> high
+  </div>
+  <input type="submit" value="create">
+</form>
+<br>
+
+<h1>DELETE TASK</h1>
+<form  action="/task/delete" method="post">
+  <input type="text" name="name" placeholder="task name">
+  <input type="submit" value="delete">
+</form>
+<br>
+
+<h1>UPDATE TASK</h1>
+<!--for now update will use task.name to find and update, will change to task._id later on  -->
+<form  action="/task/update" method="post">
+  <input type="text" name="name" placeholder="task name">
+  <br>
+  <input type="text" name="newName" placeholder="new name">
+  <input type="text" name="newDesc" placeholder="new description">
+  <div class="">
+    <input type="radio" name="newImpt" value="low" checked> low
+    <input type="radio" name="newImpt" value="normal"> normal
+    <input type="radio" name="newImpt" value="high"> high
+  </div>
+  <input type="submit" value="update">
+</form>
+<br>
+
+<h1>FIND ALL TASKS</h1>
+<form  action="/task/find" method="post">
+  <input type="submit" value="show my tasks">
 </form>

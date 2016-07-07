@@ -1,4 +1,4 @@
-const mongoose =(require('mongoose');
+const mongoose =require('mongoose'),
       Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
@@ -10,7 +10,7 @@ const taskSchema = new Schema({
     enum: ['high', 'normal', 'low'],
     default : "low"
   },
-  owner: {type.Schema.ObjectId, ref:"User"}
+  owner: {type:Schema.ObjectId, ref:"User"}
 })
 
 const Task = mongoose.model('Task', taskSchema)

@@ -37,10 +37,12 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 
-const index = require('./controllers/index.js')
-      auth = require('./controllers/auth.js')
+const index = require('./controllers/index.js'),
+      auth = require('./controllers/auth.js'),
+      api = require('./controllers/api.js')
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/tasks', api);
 
 
 

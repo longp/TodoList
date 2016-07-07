@@ -5,7 +5,10 @@ const Promise = require('bluebird'),
 const taskSchema = new Schema({
   name:String,
   description:String,
-  finished: Boolean,
+  finished: {
+    type:Boolean,
+    default: false,
+  },
   importance : {
     type:String,
     enum: ['high', 'normal', 'low'],

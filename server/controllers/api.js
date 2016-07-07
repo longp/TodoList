@@ -18,7 +18,7 @@ router.post("/create", function (req, res) {
 
 // updates a specific task
 router.post("/update", function (req,res) {
-  Task.findOneAndUpdate({name:req.body.name},
+  Task.findOneAndUpdate({name:req.body.name, owner:req.user._id},
     {$set:{
       name:req.body.newName,
       description:req.body.newDesc,
@@ -46,6 +46,15 @@ router.post("/delete", function (req, res) {
           res.send('deleted')
         })
     })
+})
+
+// finsishes a tasks
+router.post("/finish", function (req, res) {
+  Task.findOneAndUpdate({name:req.body.name, owner:req.user._id}, {$set:{finished:true}})
+    .then(function(data) {
+      res.send('finished')
+    })
+
 })
 
 // finds all tasks associated with user
